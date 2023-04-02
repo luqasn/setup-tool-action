@@ -1,11 +1,28 @@
-name: 'Name of the action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Setup Tool'
+description: 'Download and cache a binary you need'
+author: 'Lucas Romero'
 inputs:
-  milliseconds: # change this
+  binary:
+    description: 'Name of the binary. E.g. "kubectl"'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  version:
+    description: 'Version. E.g. "1.2.34"'
+    required: true
+  download_url:
+    description: 'Download URL template. Available variables are ${binary} and ${version}.'
+    required: true
+  binary_path_in_archive:
+    description: 'Template of the binary path in the archive.'
+    required: false
+    default: '${binary}'
+  artifact_format:
+    description: 'Format of the downloaded artifact'
+    required: false
+    default: 'auto'
+  smoke_test:
+    description: 'Template of the binary smoke test.'
+    required: false
+    default: '${binary} version'
 runs:
   using: 'node16'
   main: 'dist/index.js'
